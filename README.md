@@ -5,14 +5,16 @@
 
 [前端工程 resource-server-web](https://github.com/Sensems/resource-server-web)
 
-```js
 通过修改 `.env` 文件来修改基础配置
+
+```js
 DOMAIN="http://localhost:3000" // 服务端域名
 ROOTPATH="C:\\Users\\sensems\\Downloads" // 资源文件夹的绝对路径
 PORT="3000" // 运行端口
 ```
 
 ## 运行项目
+
 ```js
 yarn install // 下载依赖
 
