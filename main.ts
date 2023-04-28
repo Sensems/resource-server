@@ -21,7 +21,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/', express.static(rootFolder));
 app.use('/view', express.static(path.join(__dirname, './view')));
 
-app.get('/', (req, res) => {
+app.get('/*', (req, res) => {
   res.render(path.join(__dirname, './view/index.html'))
 })
 
