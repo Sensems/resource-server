@@ -2,6 +2,9 @@
 
 一个使用`nodejs` 的 `fs模块` 和 `express` 来进行搭建资源管理的后端服务 (已有前端页面), 因为 `nodejs` 的跨平台，默认兼容了`linux`和`window`
 
+![登录](https://files.catbox.moe/8jpb8y.png)
+
+![详情](https://files.catbox.moe/ripge9.png)
 
 [前端工程 resource-server-web](https://github.com/Sensems/resource-server-web)
 
@@ -22,6 +25,8 @@ yarn dev // 开发调试
 
 yarn start // 正式运行
 ```
+
+默认登录的用户名和密码在项目根目录下的`myDataBase.json`中
 
 ## nginx配置
 
