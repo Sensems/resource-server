@@ -3,6 +3,7 @@ const router = express.Router();
 import { constants, promises as fs } from 'fs';
 import path from 'path';
 import multer from 'multer';
+import { auth } from '../middleware/auth.middleware';
 
 interface ItemDetail {
   name: string;
@@ -113,7 +114,7 @@ export default (rootFolder: string) => {
     });
   })
 
-  router.post('/resources', async (req, res, next) => {
+  router.post('/resources', auth(['admin', 'user']), async (req, res, next) => {
     const page = parseInt(req.body.page as string) || 1;
     const limit = parseInt(req.body.limit as string) || 10;
     const search = req.body.search?.toString().toLowerCase();
@@ -151,14 +152,14 @@ export default (rootFolder: string) => {
     }
   });
 
-  router.post('/upload', upload.array('files', 10), (req, res) => {
+  router.post('/upload', auth(['admin', 'user']), upload.array('files', 10), (req, res) => {
     res.json({
       msg: '上传成功',
       data: {}
     });
   });
 
-  router.post('/deleteFile', async (req, res, next) => {
+  router.post('/deleteFile', auth(['admin']), async (req, res, next) => {
     const files: string = req.body.files.split(',');
     let hasError = false;
 
@@ -190,7 +191,7 @@ export default (rootFolder: string) => {
     }
   });
 
-  router.post('/renameFolder', async (req, res, next) => {
+  router.post('/renameFolder', auth(['admin']), async (req, res, next) => {
     const { old_name, new_name } = req.body;
     const oldPath = path.join(rootFolder, old_name);
     const newPath = path.join(rootFolder, new_name);
@@ -218,7 +219,7 @@ export default (rootFolder: string) => {
     }
   });
 
-  router.post('/createFolder', async (req, res, next) => {
+  router.post('/createFolder', auth(['admin', 'user']), async (req, res, next) => {
     const { name } = req.body;
     const dirPath = path.join(rootFolder, name);
 
@@ -233,7 +234,7 @@ export default (rootFolder: string) => {
     }
   });
 
-  router.post('/deleteFolder', async (req, res, next) => {
+  router.post('/deleteFolder', auth(['admin']), async (req, res, next) => {
     const { name } = req.body
     // const folderPath = path.join(rootFolder, name);
 
@@ -253,7 +254,7 @@ export default (rootFolder: string) => {
     }
   });
 
-  router.post('/renameFile', async (req, res, next) => {
+  router.post('/renameFile', auth(['admin']), async (req, res, next) => {
     try {
       const { old_name, new_name } = req.body;
       const oldPath = path.join(rootFolder, old_name);
@@ -271,7 +272,7 @@ export default (rootFolder: string) => {
     }
   });
 
-  router.post('/moveFile', async (req, res, next) => {
+  router.post('/moveFile', auth(['admin']), async (req, res, next) => {
     const { files, dest_dir } = req.body;
     const destDirPath = path.join(rootFolder, dest_dir);
 
